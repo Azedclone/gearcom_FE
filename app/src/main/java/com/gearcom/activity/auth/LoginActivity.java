@@ -1,11 +1,10 @@
-package com.gearcom.activity;
+package com.gearcom.activity.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -53,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                         startActivity(intent);
+                    } else {
+                        Toast.makeText(LoginActivity.this, "INTERNAL SERVER ERROR!", Toast.LENGTH_SHORT).show();
                     }
                 }
 

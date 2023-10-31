@@ -1,4 +1,4 @@
-package com.gearcom.activity;
+package com.gearcom.activity.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,18 +49,12 @@ public class RegisterActivity extends AppCompatActivity {
             AuthApi.authApi.register(body).enqueue(new Callback<Response<HTTP>>() {
                 @Override
                 public void onResponse(Call<Response<HTTP>> call, Response<Response<HTTP>> response) {
-                    try {
-                        int statusCode = call.execute().body().code();
-                        if (statusCode == 200) {
-                            Toast.makeText(RegisterActivity.this, "Register OK", Toast.LENGTH_SHORT).show();
-                        } else {
-                            throw new Exception();
-                        }
-                    } catch (Exception e) {
-                        Toast.makeText(RegisterActivity.this, "Account already existed!", Toast.LENGTH_SHORT).show();
+                    if (response.code() == 200) {
+                        Toast.makeText(RegisterActivity.this, "Register OK", Toast.LENGTH_LONG).show();
+                    } else if (response.code() == 409) {
+                        Toast.makeText(RegisterActivity.this, "Account already existed!", Toast.LENGTH_LONG).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<Response<HTTP>> call, Throwable t) {
                     System.out.println(t);

@@ -1,10 +1,11 @@
-package com.gearcom.activity;
+package com.gearcom.activity.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gearcom.R;
 import com.gearcom.api.AuthApi;
@@ -31,21 +32,24 @@ public class ProfileActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         String jwt = sharedPreferences.getString("jwt", "");
 
-        if (!jwt.isEmpty()){
-        AuthApi.authApi.getUserProfile("Bearer " + jwt).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                username.setText(response.body().getUsername());
-                name.setText(response.body().getName());
-                phone.setText(response.body().getPhone());
-                address.setText(response.body().getAddress());
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-            }
-        });
+        if (!jwt.isEmpty()) {
+            AuthApi.authApi.getUserProfile("Bearer " + jwt).enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.body() != null) {
+                        username.setText(response.body().getUsername());
+                        name.setText(response.body().getName());
+                        phone.setText(response.body().getPhone());
+                        address.setText(response.body().getAddress());
+                    } else {
+                        Toast.makeText(ProfileActivity.this, "INTERNAL SERVER ERROR", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    Toast.makeText(ProfileActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }
