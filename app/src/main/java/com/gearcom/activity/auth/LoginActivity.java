@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.gearcom.ProductListActivity;
 import com.gearcom.R;
 import com.gearcom.api.AuthApi;
 import com.gearcom.api.model.LoginBody;
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                         SharedPreferences sharedPreferences = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
                         sharedPreferences.edit().putString("jwt", jwt).apply();
                         Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, ProductListActivity.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(LoginActivity.this, "INTERNAL SERVER ERROR!", Toast.LENGTH_SHORT).show();
