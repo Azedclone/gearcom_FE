@@ -20,6 +20,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface Api {
     Gson gson = new GsonBuilder()
@@ -39,4 +40,8 @@ public interface Api {
 
     @GET("category")
     Call<List<Category>> getCategories();
+
+    @GET("product/c")
+    Call<List<Product>> getProductsByCategoryId(@Query("cid") Integer categoryId);
+
 }
