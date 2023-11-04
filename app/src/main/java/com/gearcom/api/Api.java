@@ -3,6 +3,7 @@ package com.gearcom.api;
 import com.gearcom.api.model.LoginBody;
 import com.gearcom.api.model.LoginResponse;
 import com.gearcom.api.model.RegistrationBody;
+import com.gearcom.model.Category;
 import com.gearcom.model.Product;
 import com.gearcom.model.User;
 import com.google.gson.Gson;
@@ -33,4 +34,9 @@ public interface Api {
 
     @GET("product")
     Call<List<Product>> getProducts();
+    @GET("product/{id}")
+    Call<List<Product>> getProductById();
+
+    @GET("category")
+    Call<List<Category>> getCategories();
 }

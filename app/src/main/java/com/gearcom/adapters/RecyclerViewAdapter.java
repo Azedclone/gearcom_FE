@@ -40,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.tvName.setText(productList.get(position).getName());
-        holder.tvPrice.setText(productList.get(position).getPrice().toString());
+        holder.tvPrice.setText(productList.get(position).getPrice().toString()+ "$");
         String imageUrl = productList.get(position).getImageUrl();
         Picasso.get().load(imageUrl).into(holder.imageView);
     }

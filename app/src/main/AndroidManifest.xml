@@ -17,10 +17,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ProductDetailActivity"
+            android:name=".ui.products.ProductDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ProductListActivity"
+            android:name=".ui.products.ProductListActivity"
             android:exported="false" />
         <activity
             android:name=".activity.auth.ProfileActivity"
