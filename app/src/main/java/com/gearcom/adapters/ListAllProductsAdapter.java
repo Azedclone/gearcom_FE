@@ -31,16 +31,16 @@ public class ListAllProductsAdapter extends RecyclerView.Adapter<ListAllProducts
     @Override
     public ListAllProductsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.activity_product, parent, false);
+        View view = inflater.inflate(R.layout.all_products_item, parent, false);
         return new ListAllProductsAdapter.MyViewHolder(view,listAllProductsInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ListAllProductsAdapter.MyViewHolder holder, int position) {
-        holder.tvName.setText(productList.get(position).getName());
-        holder.tvPrice.setText(productList.get(position).getPrice().toString());
+        holder.tvAllName.setText(productList.get(position).getName());
+        holder.tvAllPrice.setText(productList.get(position).getPrice().toString() + "$");
         String imageUrl = productList.get(position).getImageUrl();
-        Picasso.get().load(imageUrl).into(holder.imageView);
+        Picasso.get().load(imageUrl).into(holder.imageAllView);
     }
 
     @Override
@@ -49,13 +49,13 @@ public class ListAllProductsAdapter extends RecyclerView.Adapter<ListAllProducts
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView tvName, tvPrice;
+        ImageView imageAllView;
+        TextView tvAllName, tvAllPrice;
         public MyViewHolder(@NonNull View itemView, ListAllProductsInterface listAllProductsInterface) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.allproimageView);
-            tvName = itemView.findViewById((R.id.allprotvName));
-            tvPrice = itemView.findViewById((R.id.allprotvPrice));
+            imageAllView = itemView.findViewById(R.id.allproimageView);
+            tvAllName = itemView.findViewById((R.id.allprotvName));
+            tvAllPrice = itemView.findViewById((R.id.allprotvPrice));
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

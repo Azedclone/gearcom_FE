@@ -1,4 +1,4 @@
-package com.gearcom;
+package com.gearcom.ui.products;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gearcom.R;
 import com.gearcom.model.Product;
 import com.squareup.picasso.Picasso;
 

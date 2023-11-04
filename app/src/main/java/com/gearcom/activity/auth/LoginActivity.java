@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.gearcom.ProductListActivity;
+import com.gearcom.ui.products.ProductListActivity;
 import com.gearcom.R;
 import com.gearcom.api.AuthApi;
 import com.gearcom.api.model.LoginBody;

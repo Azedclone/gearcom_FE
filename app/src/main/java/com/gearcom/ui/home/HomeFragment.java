@@ -5,22 +5,17 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gearcom.ListAllProductFragment;
-import com.gearcom.ProductDetailActivity;
-import com.gearcom.ProductListActivity;
+import com.gearcom.ui.products.ProductDetailActivity;
+import com.gearcom.ui.products.ProductListActivity;
 import com.gearcom.R;
 import com.gearcom.adapters.CategoriesHomeAdapter;
 import com.gearcom.adapters.CategoriesHomeInterface;
@@ -46,11 +41,11 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate((R.layout.fragment_home),container,false);
 
         // Khai báo TextView cần theo dõi sự kiện nhấn
-        TextView textView = root.findViewById(R.id.viewAllProducts);
-        TextView textView1 = root.findViewById(R.id.ProductCate);
+        TextView viewAllProducts = root.findViewById(R.id.viewAllProducts);
+        TextView viewProducts = root.findViewById(R.id.ProductCate);
         // Đặt OnClickListener cho TextView
 
-        textView.setOnClickListener(new View.OnClickListener() {
+        viewAllProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ProductListActivity.class);
@@ -58,22 +53,10 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        textView1.setOnClickListener(new View.OnClickListener() {
+        viewProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Tạo instance mới của Fragment muốn chuyển đến
-                Fragment fragment = new ListAllProductFragment();
 
-                // Sử dụng FragmentManager và FragmentTransaction để thay thế Fragment hiện tại bằng Fragment mới
-                FragmentManager fragmentManager = getParentFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-
-                // (Tuỳ chọn) Thêm Fragment hiện tại vào back stack
-                fragmentTransaction.addToBackStack(null);
-
-                // Thực hiện thay thế Fragment
-                fragmentTransaction.commit();
             }
         });
 
@@ -89,7 +72,10 @@ public class HomeFragment extends Fragment {
         CategoriesHomeInterface categoriesHomeInterface = new CategoriesHomeInterface() {
             @Override
             public void onClickItem(int position) {
-
+                Intent intent = new Intent(getActivity(),ProductListActivity.class);
+                Category category = categoryList.get(position);
+                intent.putExtra("category_selected", category.getId().toString());
+                startActivity(intent);
             }
         };
         Api.api.getCategories().enqueue(new Callback<List<Category>>() {
