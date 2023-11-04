@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,28 +47,19 @@ public class HomeFragment extends Fragment {
         // Khai báo TextView cần theo dõi sự kiện nhấn
         TextView viewAllProducts = root.findViewById(R.id.viewAllProducts);
         TextView viewProducts = root.findViewById(R.id.ProductCate);
-//        EditText searchPro = root.findViewById(R.id.etSearchPro);
-//        searchPro.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                    if (s.toString().isEmpty()){
-//
-//                    }
-//                    else {
-//
-//                    }
-//            }
-//        });
+        EditText searchPro = root.findViewById(R.id.etSearchPro);
+        Button search = root.findViewById(R.id.btn_search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchText = searchPro.getText().toString();
+                if (!searchText.isEmpty()) {
+                    Intent intent = new Intent(getActivity(), ProductListActivity.class);
+                    intent.putExtra("keySearch", searchText);
+                    startActivity(intent);
+                }
+            }
+        });
         // Đặt OnClickListener cho TextView
 
         viewAllProducts.setOnClickListener(new View.OnClickListener() {
