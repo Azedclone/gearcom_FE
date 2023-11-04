@@ -26,7 +26,6 @@ import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface Api {
@@ -47,6 +46,10 @@ public interface Api {
 
     @GET("category")
     Call<List<Category>> getCategories();
+
+    @GET("product/c")
+    Call<List<Product>> getProductsByCategoryId(@Query("cid") Integer categoryId);
+
     @GET("cart")
     Call<List<Cart>> getCartByUserId(@Header("Authorization") String authHeader);
     @POST("cart")
