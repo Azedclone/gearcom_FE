@@ -63,7 +63,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     public void goBack(View view) {
-        startActivity(new Intent(ProductDetailActivity.this, ProductListActivity.class));
+        finish();
     }
 
 //    public void addToCart(View view) {

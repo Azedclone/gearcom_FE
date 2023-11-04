@@ -5,11 +5,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.gearcom.activity.auth.ProfileActivity;
+import com.gearcom.adapters.ListAllProductsAdapter;
+import com.gearcom.adapters.ListAllProductsInterface;
 import com.gearcom.adapters.RecyclerViewAdapter;
 import com.gearcom.adapters.RecyclerViewInterface;
 import com.gearcom.api.Api;
@@ -25,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductListActivity extends AppCompatActivity implements RecyclerViewInterface {
+public class ProductListActivity extends AppCompatActivity implements ListAllProductsInterface {
 
     private List<Product> productList;
     @Override
@@ -37,26 +40,27 @@ public class ProductListActivity extends AppCompatActivity implements RecyclerVi
 //        RecyclerViewAdapter adapter = new RecyclerViewAdapter(ProductListActivity.this, products, ProductListActivity.this);
 //        recyclerView.setAdapter(adapter);
 //        recyclerView.setLayoutManager(new GridLayoutManager(ProductListActivity.this, 2));
-        Api.api.getProducts().enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.body() != null) {
-                    productList = response.body();
-                    // Xử lý danh sách sản phẩm ở đây
-                    RecyclerView recyclerView = findViewById(R.id.mRecyclerView);
-                    RecyclerViewAdapter adapter = new RecyclerViewAdapter(ProductListActivity.this, productList, ProductListActivity.this);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new GridLayoutManager(ProductListActivity.this, 2));
-                } else {
-                    Toast.makeText(ProductListActivity.this, "INTERNAL SERVER ERROR", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(ProductListActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+    Api.api.getProducts().enqueue(new Callback<List<Product>>() {
+        @Override
+        public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+            if (response.body() != null) {
+                productList = response.body();
+                // Xử lý danh sách sản phẩm ở đây
+                RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
+                ListAllProductsAdapter adapter = new ListAllProductsAdapter(ProductListActivity.this, productList, ProductListActivity.this);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new GridLayoutManager(ProductListActivity.this, 1));
+            } else {
+                Toast.makeText(ProductListActivity.this, "INTERNAL SERVER ERROR", Toast.LENGTH_SHORT).show();
             }
-        });
+        }
+
+        @Override
+        public void onFailure(Call<List<Product>> call, Throwable t) {
+            Toast.makeText(ProductListActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+        }
+    });
 
 
     }
