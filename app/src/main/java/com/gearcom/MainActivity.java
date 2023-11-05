@@ -7,16 +7,27 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gearcom.activity.auth.LoginActivity;
+import com.gearcom.activity.auth.ProfileActivity;
 import com.gearcom.activity.auth.RegisterActivity;
+import com.gearcom.api.AuthApi;
 import com.gearcom.databinding.ActivityMainBinding;
+import com.gearcom.model.User;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,6 +60,26 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String jwt = sharedPreferences.getString("jwt", "");
+        if (!jwt.isEmpty()) {
+            AuthApi.authApi.getUserProfile("Bearer " + jwt).enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    if (response.body() != null) {
+                        View headerView = navigationView.getHeaderView(0);
+                        TextView nameTextView = headerView.findViewById(R.id.name);
+                        nameTextView.setText(response.body().getUsername());
+                    }
+                }
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+
+                }
+            });
+
+        }
     }
 
     @Override

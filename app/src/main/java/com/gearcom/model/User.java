@@ -3,6 +3,14 @@ package com.gearcom.model;
 import androidx.annotation.Nullable;
 
 public class User {
+    private static User instance;
+
+    public static User getInstance() {
+        if (instance == null) {
+            instance = new User();
+        }
+        return instance;
+    }
     private Integer id;
     private String username;
     private String phone;

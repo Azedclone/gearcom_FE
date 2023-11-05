@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -22,8 +26,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gearcom.R;
+import com.gearcom.activity.auth.LoginActivity;
+import com.gearcom.activity.auth.RegisterActivity;
+import com.gearcom.adapters.MyCartAdapter;
+import com.gearcom.api.Api;
+import com.gearcom.api.model.CartBody;
+import com.gearcom.model.Cart;
 import com.gearcom.model.Product;
+import com.gearcom.ui.carts.MyCartsFragment;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.HTTP;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
@@ -67,20 +85,41 @@ public class ProductDetailActivity extends AppCompatActivity {
         finish();
     }
 
-//    public void addToCart(View view) {
-//        Intent intent = getIntent();
-//        Product product = (Product) intent.getSerializableExtra("product_selected");
-//
-//        CartManager cartManager = CartManager.getInstance();
-//        cartManager.addProduct(product);
-//
-//        CurrentUser currentUser = CurrentUser.getInstance();
-//
-//        LapHelper dbHelper = new LapHelper(this);
-//        dbHelper.addToCart(currentUser.getUserId(),product.getProductId(), product.getProductName(), 1,10);
+    public void addToCart(View view) {
+        Intent intent = getIntent();
+        Product product = (Product) intent.getSerializableExtra("product_selected");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String jwt = sharedPreferences.getString("jwt", "");
+        if (!jwt.isEmpty()) {
+            CartBody cartBody= new CartBody();
+            cartBody.setProduct(product);
+            cartBody.setQuantity(1);
+            Api.api.addToCart("Bearer " + jwt,cartBody).enqueue(new Callback<Response<HTTP>>() {
+                @Override
+                public void onResponse(Call<Response<HTTP>> call, Response<Response<HTTP>> response) {
+                    if (response.code() == 200) {
+                        Toast.makeText(ProductDetailActivity.this, "Add success", Toast.LENGTH_LONG).show();
+                    } else if (response.code() == 409) {
+                        Toast.makeText(ProductDetailActivity.this, "Add fail!", Toast.LENGTH_LONG).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<Response<HTTP>> call, Throwable t) {
+                    System.out.println(t);
+                    Toast.makeText(ProductDetailActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+            Intent intent1 = new Intent(this, LoginActivity.class);
+            startActivity(intent1);
+        }
+
+
 //
 //        // Tạo intent để mở trang giỏ hàng
-//        Intent cartIntent = new Intent(this, CartActivity.class);
+//        Intent cartIntent = new Intent(this, MyCartsFragment.class);
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, cartIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 //        // Tạo thông báo
 //        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -92,6 +131,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 //        // Gửi thông báo
 //        NotificationManager notificationManager = getSystemService(NotificationManager.class);
 //        notificationManager.notify(1, builder.build());
-//
-//    }
+
+    }
 }
