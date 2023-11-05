@@ -1,6 +1,8 @@
 package com.gearcom.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,6 +41,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate((R.layout.fragment_home),container,false);
+
 
         // Khai báo TextView cần theo dõi sự kiện nhấn
         TextView viewAllProducts = root.findViewById(R.id.viewAllProducts);
