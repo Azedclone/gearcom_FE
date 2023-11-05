@@ -12,6 +12,8 @@
     <string name="profile">Profile</string>
     <string name="my_order">My Orders</string>
     <string name="my_cart">My Carts</string>
+    <string name="location">Shop location</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoibjRubjAiLCJhIjoiY2xuaG9zenNsMTV6dzJscml6ejVzeTZxNCJ9.wr9xt3U4y3A3bWIRXN2XIg</string>
 </resources>

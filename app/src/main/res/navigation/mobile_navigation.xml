@@ -17,11 +17,6 @@
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/nav_category"
-        android:name="com.gearcom.ui.category.CategoryFragment"
-        android:label="@string/category"
-        tools:layout="@layout/fragment_category" />
-    <fragment
         android:id="@+id/nav_order"
         android:name="com.gearcom.ui.orders.MyOrdersFragment"
         android:label="@string/my_order"
@@ -32,8 +27,8 @@
         android:label="@string/my_cart"
         tools:layout="@layout/fragment_my_carts" />
     <fragment
-        android:id="@+id/nav_list_all_product"
-        android:name="com.gearcom.ListAllProductFragment"
-        android:label="fragment_list_all_product"
-        tools:layout="@layout/fragment_list_all_product" />
+        android:id="@+id/location"
+        android:name="com.gearcom.ui.location.LocationFragment"
+        android:label="@string/location"
+        tools:layout="@layout/fragment_my_carts" />
 </navigation>
