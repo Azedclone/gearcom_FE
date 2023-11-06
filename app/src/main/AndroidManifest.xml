@@ -3,11 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- Always include this permission -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- Include only if your app benefits from precise location access. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Always include this permission -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Include only if your app benefits from precise location access. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -21,6 +18,9 @@
         android:theme="@style/Theme.Gearcom"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.location.LocationActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.products.ProductDetailActivity"
             android:exported="false" />
@@ -38,7 +38,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" android:label="@string/app_name"
+            android:exported="true"
+            android:label="@string/app_name"
             android:theme="@style/Theme.Gearcom.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

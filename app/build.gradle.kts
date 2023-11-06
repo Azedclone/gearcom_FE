@@ -45,7 +45,6 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.7.5")
     implementation("androidx.navigation:navigation-fragment:2.7.2")
     implementation("androidx.navigation:navigation-ui:2.7.2")
-    implementation(files("F:\\AndroidStudio\\Project\\GearCom\\gearcom_FE\\app\\libs\\merchant-1.0.25.aar"))
 
 
     testImplementation("junit:junit:4.13.2")
@@ -59,6 +58,5 @@ dependencies {
     implementation("com.mapbox.maps:android:10.16.1")
     implementation("com.squareup.okhttp3:okhttp:3.14.1")
     implementation ("com.squareup.picasso:picasso:2.71828")
-    compileOnly(files("F:\\AndroidStudio\\Project\\GearCom\\gearcom_FE\\app\\libs\\merchant-1.0.25.aar"))
 
 }

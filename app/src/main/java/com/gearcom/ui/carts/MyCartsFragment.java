@@ -46,9 +46,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.HTTP;
 
-import com.vnpay.authentication.VNP_AuthenticationActivity;
-import com.vnpay.authentication.VNP_SdkCompletedCallback;
-
 public class MyCartsFragment extends Fragment {
     List<Cart> carts;
     private TextView tvPriceTotal;

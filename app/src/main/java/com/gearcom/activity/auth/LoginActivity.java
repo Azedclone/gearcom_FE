@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.gearcom.MainActivity;
 import com.gearcom.ui.home.HomeFragment;
+import com.gearcom.ui.location.LocationActivity;
 import com.gearcom.ui.products.ProductListActivity;
 import com.gearcom.R;
 import com.gearcom.api.AuthApi;
@@ -71,4 +75,5 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
+
 }

@@ -26,9 +26,4 @@
         android:name="com.gearcom.ui.carts.MyCartsFragment"
         android:label="@string/my_cart"
         tools:layout="@layout/fragment_my_carts" />
-    <fragment
-        android:id="@+id/location"
-        android:name="com.gearcom.ui.location.LocationFragment"
-        android:label="@string/location"
-        tools:layout="@layout/fragment_my_carts" />
 </navigation>

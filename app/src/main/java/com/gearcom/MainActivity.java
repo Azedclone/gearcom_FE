@@ -22,6 +22,7 @@ import com.gearcom.activity.auth.ProfileActivity;
 import com.gearcom.activity.auth.RegisterActivity;
 import com.gearcom.api.AuthApi;
 import com.gearcom.databinding.ActivityMainBinding;
+import com.gearcom.ui.location.LocationActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -63,6 +64,27 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int choice = item.getItemId();
+
+        if (choice == R.id.login) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+        if (choice == R.id.register) {
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        }
+        if (choice == R.id.location) {
+            Intent intent = new Intent(MainActivity.this, LocationActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
