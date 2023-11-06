@@ -17,7 +17,7 @@
             android:id="@+id/product_img"
             android:layout_width="400dp"
             android:layout_height="300dp"
-            android:src="@drawable/side_nav_bar"
+            android:src="@drawable/baseline_add_shopping_cart_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

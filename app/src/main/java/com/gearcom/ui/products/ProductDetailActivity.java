@@ -107,9 +107,9 @@ public class ProductDetailActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<Response<HTTP>> call, Throwable t) {
                     System.out.println(t);
-                    Toast.makeText(ProductDetailActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             });
+            Toast.makeText(ProductDetailActivity.this, "Add success", Toast.LENGTH_LONG).show();
 
         } else {
             Intent intent1 = new Intent(this, LoginActivity.class);

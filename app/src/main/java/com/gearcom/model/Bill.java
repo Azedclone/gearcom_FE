@@ -1,12 +1,13 @@
 package com.gearcom.model;
 
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Bill {
     int id;
-
-    Instant createdAt;
 
     Double totalPrice;
 
@@ -22,13 +23,6 @@ public class Bill {
         this.id = id;
     }
 
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
 
     public Double getTotalPrice() {
         return totalPrice;
