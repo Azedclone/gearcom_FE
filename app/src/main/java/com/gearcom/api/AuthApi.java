@@ -29,7 +29,7 @@ public interface AuthApi {
             .create(com.gearcom.api.AuthApi.class);
 
     @POST("register")
-    Call<Response<HTTP>> register(@Body RegistrationBody body);
+    Call<Void> register(@Body RegistrationBody body);
 
     @POST("login")
     Call<LoginResponse> login(@Body LoginBody body);

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activity.auth.RegisterActivity">
@@ -38,6 +39,7 @@
             android:gravity="center"
             android:text="Login"
             android:textAllCaps="true"
+            android:textColor="#FFFFFFFF"
             android:textSize="24sp"
             android:textStyle="bold" />
 

@@ -46,9 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             RegistrationBody body = new RegistrationBody(username, password, name, phone, address);
 
-            AuthApi.authApi.register(body).enqueue(new Callback<Response<HTTP>>() {
+            AuthApi.authApi.register(body).enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<Response<HTTP>> call, Response<Response<HTTP>> response) {
+                public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.code() == 200) {
                         Toast.makeText(RegisterActivity.this, "Register OK", Toast.LENGTH_LONG).show();
                     } else if (response.code() == 409) {
@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
                 @Override
-                public void onFailure(Call<Response<HTTP>> call, Throwable t) {
+                public void onFailure(Call<Void> call, Throwable t) {
                     System.out.println(t);
                     Toast.makeText(RegisterActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }

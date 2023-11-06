@@ -7,13 +7,20 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gearcom.activity.auth.LoginActivity;
+import com.gearcom.activity.auth.ProfileActivity;
 import com.gearcom.activity.auth.RegisterActivity;
+import com.gearcom.api.AuthApi;
 import com.gearcom.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
