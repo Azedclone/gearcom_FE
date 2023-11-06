@@ -55,7 +55,7 @@ public interface Api {
     Call<List<Cart>> getCartByUserId(@Header("Authorization") String authHeader);
     @POST("cart")
     Call<Response<HTTP>> addToCart(@Header("Authorization") String authHeader,@Body CartBody cartBody);
-    @DELETE("cart")
+    @POST("cart/remove")
     Call<Response<HTTP>> removeFromCart(@Header("Authorization") String authHeader,@Body CartBody cartBody);
     @PUT("cart")
     Call<Response<HTTP>> minusQuantity(@Header("Authorization") String authHeader,@Body CartBody cartBody);

@@ -147,6 +147,8 @@ public class MyCartsFragment extends Fragment {
                                 int position = viewHolder.getAdapterPosition();
                                 CartBody cartBody = new CartBody();
                                 cartBody.setProduct(carts.get(position).getProduct());
+                                carts.remove(carts.get(position));
+                                adapter.notifyDataSetChanged();
                                 Api.api.removeFromCart("Bearer " + jwt, cartBody).enqueue(new Callback<Response<HTTP>>() {
                                     @Override
                                     public void onResponse(Call<Response<HTTP>> call, Response<Response<HTTP>> response) {
@@ -166,7 +168,7 @@ public class MyCartsFragment extends Fragment {
                             }
                         };
 
-                        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MyCartAdapter.SwipeToDeleteCallback(adapter));
+                        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
                         itemTouchHelper.attachToRecyclerView(recyclerView);
 
                         calculateTotalPrice();

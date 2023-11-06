@@ -89,9 +89,9 @@ public class ProductListActivity extends AppCompatActivity implements ListAllPro
                 @Override
                 public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                     if (response.body() != null) {
-                        productListSearch = response.body();
+                        productList = response.body();
                         RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
-                        ListAllProductsAdapter adapter = new ListAllProductsAdapter(ProductListActivity.this, productListSearch, ProductListActivity.this);
+                        ListAllProductsAdapter adapter = new ListAllProductsAdapter(ProductListActivity.this, productList, ProductListActivity.this);
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new GridLayoutManager(ProductListActivity.this, 1));
                     } else {
