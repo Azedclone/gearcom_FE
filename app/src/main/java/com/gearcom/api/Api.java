@@ -47,17 +47,24 @@ public interface Api {
 
     @GET("category")
     Call<List<Category>> getCategories();
+
+    @GET("product/c")
+    Call<List<Product>> getProductsByCategoryId(@Query("cid") Integer categoryId);
+
     @GET("cart")
     Call<List<Cart>> getCartByUserId(@Header("Authorization") String authHeader);
     @POST("cart")
     Call<Response<HTTP>> addToCart(@Header("Authorization") String authHeader,@Body CartBody cartBody);
-    @DELETE("cart")
+    @POST("cart/remove")
     Call<Response<HTTP>> removeFromCart(@Header("Authorization") String authHeader,@Body CartBody cartBody);
     @PUT("cart")
     Call<Response<HTTP>> minusQuantity(@Header("Authorization") String authHeader,@Body CartBody cartBody);
 
     @POST("bill")
-    Call<Bill> createBill(@Body Bill bill,@Header("Authorization") String authHeader);
+    Call<Void> createBill(@Body BillBody billBody,@Header("Authorization") String authHeader);
     @POST("billDetail")
     Call<List<BillDetail>> createBillDetails(@Body BillBody billBody);
+
+    @GET("cart/remove")
+    Call<Void> removeCartByUserId(@Header("Authorization") String authHeader);
 }

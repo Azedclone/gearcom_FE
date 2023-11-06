@@ -1,18 +1,20 @@
 package com.gearcom.api.model;
 
+import com.gearcom.model.Bill;
+
 import java.util.List;
 
 public class BillBody {
 
-    private int billId;
+    private Bill bill;
     private List<BillDetailBody> billDetailBodies;
 
-    public int getBillId() {
-        return billId;
+    public Bill getBill() {
+        return bill;
     }
 
-    public void setBillId(int billId) {
-        this.billId = billId;
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 
     public List<BillDetailBody> getBillDetailBodies() {

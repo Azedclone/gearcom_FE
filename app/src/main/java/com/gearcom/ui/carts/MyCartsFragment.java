@@ -33,6 +33,7 @@ import com.gearcom.model.Bill;
 import com.gearcom.model.BillDetail;
 import com.gearcom.model.Cart;
 import com.gearcom.model.Category;
+import com.gearcom.model.User;
 import com.gearcom.ui.products.ProductDetailActivity;
 import com.gearcom.ui.products.ProductListActivity;
 
@@ -50,6 +51,7 @@ public class MyCartsFragment extends Fragment {
     List<Cart> carts;
     private TextView tvPriceTotal;
     private double totalPrice = 0;
+    private boolean isBill;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +72,11 @@ public class MyCartsFragment extends Fragment {
                 public void onResponse(Call<List<Cart>> call, Response<List<Cart>> response) {
                     if (response.body() != null) {
                         carts = response.body();
+                        if(carts.size()==0) {
+                            root.findViewById(R.id.constraint1).setVisibility(View.VISIBLE);
+                            root.findViewById(R.id.constraint2).setVisibility(View.GONE);
+                            return ;
+                        }
                         // Xử lý danh sách sản phẩm ở đây
                         RecyclerView recyclerView = root.findViewById(R.id.mRecyclerView);
                         MyCartAdapter adapter = new MyCartAdapter(getActivity(), carts, recyclerViewInterface);
@@ -93,7 +100,6 @@ public class MyCartsFragment extends Fragment {
                                     @Override
                                     public void onFailure(Call<Response<HTTP>> call, Throwable t) {
                                         System.out.println(t);
-                                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                                 calculateTotalPrice();
@@ -118,7 +124,6 @@ public class MyCartsFragment extends Fragment {
                                     @Override
                                     public void onFailure(Call<Response<HTTP>> call, Throwable t) {
                                         System.out.println(t);
-                                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                                 calculateTotalPrice();
@@ -139,6 +144,8 @@ public class MyCartsFragment extends Fragment {
                                 int position = viewHolder.getAdapterPosition();
                                 CartBody cartBody = new CartBody();
                                 cartBody.setProduct(carts.get(position).getProduct());
+                                carts.remove(carts.get(position));
+                                adapter.notifyDataSetChanged();
                                 Api.api.removeFromCart("Bearer " + jwt, cartBody).enqueue(new Callback<Response<HTTP>>() {
                                     @Override
                                     public void onResponse(Call<Response<HTTP>> call, Response<Response<HTTP>> response) {
@@ -152,14 +159,13 @@ public class MyCartsFragment extends Fragment {
                                     @Override
                                     public void onFailure(Call<Response<HTTP>> call, Throwable t) {
                                         System.out.println(t);
-                                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                                 calculateTotalPrice();
                             }
                         };
 
-                        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MyCartAdapter.SwipeToDeleteCallback(adapter));
+                        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchCallback);
                         itemTouchHelper.attachToRecyclerView(recyclerView);
 
                         calculateTotalPrice();
@@ -170,7 +176,6 @@ public class MyCartsFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<Cart>> call, Throwable t) {
-                    Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -178,9 +183,11 @@ public class MyCartsFragment extends Fragment {
             startActivity(intent);
         }
         Button buy =  root.findViewById(R.id.buy_now);
+
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isBill = true;
                 List<BillDetailBody> list = new ArrayList<>();
                 for (Cart c : carts
                 ) {
@@ -190,40 +197,38 @@ public class MyCartsFragment extends Fragment {
                     list.add(billDetailBody);
                 }
                 Bill bill = new Bill();
+                bill.setId(1);
                 bill.setTotalPrice(totalPrice);
-                Api.api.createBill(bill,"Bearer " + jwt).enqueue(new Callback<Bill>() {
+                BillBody billBody = new BillBody();
+                billBody.setBill(bill);
+                billBody.setBillDetailBodies(list);
+                Api.api.createBill(billBody,"Bearer " + jwt).enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<Bill> call, Response<Bill> response) {
-                        if (response != null) {
-                            Bill bill = response.body();
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    }
 
-                            BillBody billBody = new BillBody();
-                            billBody.setBillId(bill.getId());
-                            billBody.setBillDetailBodies(list);
-                            Api.api.createBillDetails(billBody).enqueue(new Callback<List<BillDetail>>() {
-                                @Override
-                                public void onResponse(Call<List<BillDetail>> call, Response<List<BillDetail>> response) {
-                                    if (response != null) {
-                                        carts = new ArrayList<>();
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<List<BillDetail>> call, Throwable t) {
-                                    System.out.println(t);
-                                    Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                    }
+                });
+                Api.api.removeCartByUserId("Bearer " + jwt).enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.isSuccessful()) {
+                            carts = new ArrayList<>();
+                            root.findViewById(R.id.constraint1).setVisibility(View.VISIBLE);
+                            root.findViewById(R.id.constraint2).setVisibility(View.GONE);
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Bill> call, Throwable t) {
+                    public void onFailure(Call<Void> call, Throwable t) {
                         System.out.println(t);
-                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Something went wrong buy now", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
+
         });
         return root;
     }

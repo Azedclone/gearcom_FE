@@ -10,9 +10,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +50,19 @@ public class HomeFragment extends Fragment {
         // Khai báo TextView cần theo dõi sự kiện nhấn
         TextView viewAllProducts = root.findViewById(R.id.viewAllProducts);
         TextView viewProducts = root.findViewById(R.id.ProductCate);
+        EditText searchPro = root.findViewById(R.id.etSearchPro);
+        Button search = root.findViewById(R.id.btn_search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String searchText = searchPro.getText().toString();
+                if (!searchText.isEmpty()) {
+                    Intent intent = new Intent(getActivity(), ProductListActivity.class);
+                    intent.putExtra("keySearch", searchText);
+                    startActivity(intent);
+                }
+            }
+        });
         // Đặt OnClickListener cho TextView
 
         viewAllProducts.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +94,7 @@ public class HomeFragment extends Fragment {
             public void onClickItem(int position) {
                 Intent intent = new Intent(getActivity(),ProductListActivity.class);
                 Category category = categoryList.get(position);
-                intent.putExtra("category_selected", category.getId().toString());
+                intent.putExtra("category_selected", (Serializable) category);
                 startActivity(intent);
             }
         };
