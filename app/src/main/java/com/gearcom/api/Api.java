@@ -57,7 +57,10 @@ public interface Api {
     Call<Response<HTTP>> minusQuantity(@Header("Authorization") String authHeader,@Body CartBody cartBody);
 
     @POST("bill")
-    Call<Bill> createBill(@Body Bill bill,@Header("Authorization") String authHeader);
+    Call<Void> createBill(@Body BillBody billBody,@Header("Authorization") String authHeader);
     @POST("billDetail")
     Call<List<BillDetail>> createBillDetails(@Body BillBody billBody);
+
+    @GET("cart/remove")
+    Call<Void> removeCartByUserId(@Header("Authorization") String authHeader);
 }
