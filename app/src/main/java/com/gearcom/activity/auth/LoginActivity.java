@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.gearcom.MainActivity;
 import com.gearcom.ui.home.HomeFragment;
-import com.gearcom.ui.location.LocationActivity;
 import com.gearcom.ui.products.ProductListActivity;
 import com.gearcom.R;
 import com.gearcom.api.AuthApi;
