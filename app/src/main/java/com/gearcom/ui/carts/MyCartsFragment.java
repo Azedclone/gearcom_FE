@@ -38,7 +38,6 @@ import com.gearcom.model.Category;
 import com.gearcom.model.User;
 import com.gearcom.ui.products.ProductDetailActivity;
 import com.gearcom.ui.products.ProductListActivity;
-import com.vnpay.authentication.VNP_AuthenticationActivity;
 
 import android.content.SharedPreferences;
 

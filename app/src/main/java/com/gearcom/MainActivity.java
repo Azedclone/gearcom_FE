@@ -1,6 +1,5 @@
 package com.gearcom;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -8,14 +7,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -25,29 +19,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gearcom.activity.auth.LoginActivity;
-import com.gearcom.activity.auth.ProfileActivity;
 import com.gearcom.activity.auth.RegisterActivity;
-import com.gearcom.adapters.CartItemCallback;
-import com.gearcom.adapters.MyCartAdapter;
 import com.gearcom.api.Api;
 import com.gearcom.api.AuthApi;
-import com.gearcom.api.model.CartBody;
+import com.gearcom.ui.chat.ChatActivity;
 import com.gearcom.databinding.ActivityMainBinding;
 import com.gearcom.model.Cart;
 import com.gearcom.model.User;
-import com.gearcom.ui.carts.MyCartsFragment;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.HTTP;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                startActivity(intent);
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
