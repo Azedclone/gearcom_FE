@@ -8,6 +8,9 @@
         android:id="@+id/register"
         android:title="Register" />
     <item
+        android:id="@+id/profile"
+        android:title="Profile" />
+    <item
         android:id="@+id/location"
         android:title="Our Location" />
 </menu>

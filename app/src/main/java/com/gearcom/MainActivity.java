@@ -107,6 +107,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intent);
         }
+        if (choice == R.id.register) {
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        }
         if (choice == R.id.location) {
             Intent intent = new Intent(MainActivity.this, LocationActivity.class);
             startActivity(intent);
